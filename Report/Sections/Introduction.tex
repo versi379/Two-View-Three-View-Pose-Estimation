@@ -1,0 +1,19 @@
+\section{Introduction}\label{sec:intro}
+Since the beginning of computer vision, cameras and images have been key areas of study. Central to this field are challenging tasks like figuring out positions and reconstructing 2D or 3D scenes. These tasks rely on understanding how points in space relate to their images, following the principles of perspective projection in pinhole cameras. This knowledge allows us to triangulate points in space from their projections in images.\\
+
+Within this framework, the fundamental matrix is a key algebraic tool that captures the relationship between matching points in images. It helps us understand the relative positions and orientations of two camera views, which is crucial for many computer vision applications. Extending this to three views introduces the trifocal tensor, a mathematical construct that represents the relationships among three corresponding image points, known as trilinearities. While it's theoretically possible to create a multi-view matrix for any number of views, practical applications usually focus on pairs or triplets of views. As a result, most multi-view structure-from-motion techniques start with pairs or triplets of images for practical use.\\
+
+Traditionally, the trifocal tensor is favoured over the fundamental matrix when working with three views. Our research challenges this preference by thoroughly investigating and comparing the performance of the trifocal tensor against the fundamental matrix.\\
+
+\subsection{Outline}
+
+In Sections (\ref{sec:fm}) and (\ref{sec:tft}) we thoroughly define and explain the fundamental matrix and the trifocal tensor, respectively. Then, in Section (\ref{sec:estimation}) we present the methods used to determine camera poses, either using the fundamental matrix or the trifocal tensor. The performances of both are compared with empirical findings in Section (\ref{sec:experiments}). These results are analyzed in Section (\ref{sec:conclusions}), leading us to conclude that while the trifocal tensor has certain advantages, they are not significant enough to definitively consider it superior to the fundamental matrix.
+
+\subsection{Notation}
+In this paper, we adopt specific notation conventions: vectors are denoted by lowercase (\( v \)), matrices by uppercase (\( M \)), tensors by calligraphic bold uppercase (\( \mathbfcal{T} \)), and tensors' correlation slices (\ie, matrices) by bold uppercase (\( \bm{T}_i \)).\\
+
+The \( 3 \times 3 \) matrix representation of the cross product with a 3-vector $v$ is indicated by \( [v]_{\times}w \), \ie, \( [v]_{\times}w = v \times w \), where \( w \) represents any given vector.\\
+
+The \( L^2 \) norm of a vector \( v \) is denoted as \( \Vert v \Vert \), while for matrices or tensors, it represents the \( L^2 \) norm of the vector constructed from their coefficients. The Frobenius norm of a matrix \( M \) is denoted as \( \Vert M \Vert \), while for a tensor \( \mathbfcal{T} \), it signifies the square root of the sum of squares of all its elements, denoted as \( \Vert \mathbfcal{T} \Vert \coloneqq \sqrt{\sum_{i,j,k} (\bm{T}_{i}^{jk})^2} \).\\
+
+Additionally, \( \vert M \vert \) refers to the determinant of matrix \( M \).

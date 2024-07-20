@@ -1,0 +1,9 @@
+\section{Conclusions}\label{sec:conclusions}
+In our study, we explored different methods for estimating the trifocal tensor and figuring out the positions of three separate views. After thorough testing, we found that even though the trifocal tensor is a valid method, it doesn't offer enough benefits over using fundamental matrices from pairs of views to make it the better choice.\\
+
+Our results highlight the practical benefits of simplicity and efficiency. We recommend focusing on pairwise constraints using fundamental matrices and then refining the results with bundle adjustment techniques. It's important to mention that bundle adjustment consistently reduces errors significantly. In this approach, the first step is to establish pairwise constraints to determine the relative scales of translations, using image triplets mainly for this purpose.
+
+\subsection{Future Work}
+Another interesting direction for future analysis is to see if using the trifocal tensor gives better results when working with more than three views (\ie, \( n > 3 \)). In such multi-view stereo setups, the way image pairs and triplets are combined will likely have a big impact on the overall effectiveness.\\
+
+Our work also showed something important about bundle adjustment optimisation. We discovered that even if we start the process from very different points, it can still end up at a good solution. This means there might be a bigger area where the optimisation works well, and we plan to look into this more in future studies.
