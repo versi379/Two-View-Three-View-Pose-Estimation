@@ -1,5 +1,5 @@
 \section{The Fundamental Matrix}\label{sec:fm}
-In this section, we begin by defining the fundamental matrix. Next, we outline numerical methods for estimating the fundamental matrix using point correspondences between two images. We start by using linear equations from epipolar constraints to build a basic framework. Then, we delve into \ac{GH} \cite{12-gauss-helmert} to improve precision and robustness in our analysis. A similar approach will be carried out for the \acs{TFT} later on (Section \ref{sec:tft}).
+In this section, we begin by defining the fundamental matrix. Next, we outline numerical methods for estimating the fundamental matrix using point correspondences between two images. We start by using linear equations from epipolar constraints to build a basic framework. Then, we delve into \ac{GH} \cite{12-gauss-helmert} to improve precision and robustness in our analysis. A similar approach will be carried out for the trifocal tensor later on (Section \ref{sec:tft}).
 
 \subsection{Definition}
 The \ac{FM} is defined by the equation
@@ -35,16 +35,16 @@ The 8-point algorithm stands as the most straightforward approach for computing 
 
 \begin{algorithm}[h]
 		\caption{Normalized Eight Point Algorithm (\acs{L-FM})}
-		\kwObjective{Given \( n \geq 8 \) image point correspondences \( \{ x_i \leftrightarrow x'_i \} \), determine the fundamental matrix \( F \) such that \( {x'}_i^\top Fx_i = 0 \).}
+		\kwObjective{Given \( n \geq 8 \) image point correspondences \( \{ x_i \leftrightarrow x'_i \} \), determine the \acs{FM} \( F \) such that \( {x'}_i^\top Fx_i = 0 \).}
 		\kwAlgorithm{
 		\begin{enumerate}[label=(\roman*),leftmargin=*,rightmargin=1.5em]
         	\item \textbf{Normalization:} Transform the image coordinates according to \( \hat{x}_i = Tx_i \) and \( \hat{x}'_i = Tx_i' \), where \( T \) and \( T' \) are normalizing transformations consisting of a translation and a scaling.
-        	\item Find the Fundamental Matrix \( \hat{F}' \) corresponding to the matches \( \{ x_i \leftrightarrow x'_i \} \) by
+        	\item Find the \acs{FM} \( \hat{F}' \) corresponding to the matches \( \{ x_i \leftrightarrow x'_i \} \) by
        		\begin{enumerate}[label=(\alph*),leftmargin=*,rightmargin=1.5em]
        			\item \textbf{Linear solution:} Determine \( \hat{F} \) from the singular vector corresponding to the smallest singular value of \( \hat{A} \), where \( \hat{A} \) is composed from the matches \( \{ x_i \leftrightarrow x'_i \} \) as defined in Equation (\ref{eq:LinearFM}).
-       			\item \textbf{Constraint enforcement:} Replace \( \hat{F} \) by \( \hat{F}' \) such that \( |\hat{F}'| = 0 \) using the SVD.
+       			\item \textbf{Constraint enforcement:} Replace \( \hat{F} \) by \( \hat{F}' \) such that \( |\hat{F}'| = 0 \) using the \acs{SVD}.
        		\end{enumerate}
-        	\item \textbf{Denormalization:} Set \( F = T'^\top \hat{F}'T \). Matrix \( F \) is the fundamental matrix corresponding to the original data \( \{ x_i \leftrightarrow x'_i \} \).
+        	\item \textbf{Denormalization:} Set \( F = T'^\top \hat{F}'T \). Matrix \( F \) is the \acs{FM} corresponding to the original data \( \{ x_i \leftrightarrow x'_i \} \).
     	\end{enumerate}
     }
     \label{algo:LFM}
@@ -56,7 +56,7 @@ The 8-point algorithm stands as the most straightforward approach for computing 
 
 \begin{algorithm}[h]
 		\caption{\acs{GH} Algorithm for the \acs{FM} (\acs{O-FM})}
-		\kwObjective{Given \( n \geq 8 \) image point correspondences \( \{ x_i \leftrightarrow x'_i \} \), determine the fundamental matrix \( F \) such that \( {x'}_i^\top Fx_i = 0 \).}
+		\kwObjective{Given \( n \geq 8 \) image point correspondences \( \{ x_i \leftrightarrow x'_i \} \), determine the \acs{FM} \( F \) such that \( {x'}_i^\top Fx_i = 0 \).}
 		\kwAlgorithm{
 		\begin{enumerate}[label=(\roman*),leftmargin=*,rightmargin=1.5em]
         	\item \textbf{Initial Linear Estimation:} Algorithm (\ref{algo:LFM}).

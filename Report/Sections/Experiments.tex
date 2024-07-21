@@ -5,18 +5,18 @@ We put into action and assessed the outcomes of pose estimation for both synthet
 
 As for the \acs{FM}, we compute it both linearly (\acs{L-FM}) and through \acs{GH} (\acs{O-FM}), whereas for the \acs{TFT} we employ linear computation (\acs{L-TFT}) and apply \acs{GH} using minimal parametrizations proposed by Ressl (\acs{R-TFT}), Nordberg (\acs{N-TFT}), Faugeras \& Papadopoulo (\acs{FP-TFT}), and Ponce \& Hebert (\acs{PH-TFT}).
 
-Additionally, we present the result obtained through \acs{BA}, which is initialised using any of the aforementioned methods. Remarkably, our experiments reveal that all initialisations yield nearly identical final poses post-minimization in the majority of cases, an observation we delve into later in our discussions.
+Additionally, we present the result obtained through \acs{BA}, which is initialised using any of the methods mentioned above. Remarkably, our experiments reveal that all initialisations yield nearly identical final poses post-minimization with \acs{BA} in the majority of cases..
 
 \subsection{Synthetic Data}
-We conducted trials on synthetic data to assess pose estimation using both the fundamental matrix and the trifocal tensor across various configurations. The standard experimental setup consists of a collection of spatial points situated within a 400mm-sided cube centred at the world's origin, as shown in Figure (\ref{fig:syntheticScenes}). Points are projected onto three views, and Gaussian noise with a standard deviation of 1 pixel is applied to the image points, unless specified otherwise. A set of 10 points is utilised for computations across various models. The image dimensions are \( 1800 \times 1200 \) pixels, representing a sensor size of \( 36mm \times 24mm \), with a fixed focal length of 50mm. All cameras are aligned to focus on the origin. Results are averaged over 30 simulations of data.\\
+We conducted trials on synthetic data to assess pose estimation using both the \acs{FM} and the \acs{TFT} across various configurations. The standard experimental setup consists of a collection of spatial points situated within a 400mm-sided cube centred at the world's origin, as shown in Figure (\ref{fig:syntheticScenes}). Points are projected onto three views, and Gaussian noise with a standard deviation of 1 pixel is applied to the image points, unless specified otherwise. The image dimensions are \( 1800 \times 1200 \) pixels, and since we assume a fixed focal length of 50mm, we represent a sensor size of \( 36mm \times 24mm \). All cameras are aligned to focus on the origin. Results are averaged over 30 simulations of data. \footnote{Synthetic trials are developed in the MATLAB script \textit{SyntheticExperiments.m} of the GitHub repository.}\\
 
 \begin{figure}[h]
     \centering
-    \subfigure[]{\includegraphics[width=0.34\textwidth]{Experiments/Synthetic/scene/IT1.png}} 
-    \subfigure[]{\includegraphics[width=0.34\textwidth]{Experiments/Synthetic/scene/IT10.png}}
+    \subfigure[]{\includegraphics[width=0.33\textwidth]{Experiments/Synthetic/scene/IT1.png}} 
+    \subfigure[]{\includegraphics[width=0.33\textwidth]{Experiments/Synthetic/scene/IT10.png}}
     \\ 
-    \subfigure[]{\includegraphics[width=0.34\textwidth]{Experiments/Synthetic/scene/IT20.png}}
-    \subfigure[]{\includegraphics[width=0.34\textwidth]{Experiments/Synthetic/scene/IT30.png}}
+    \subfigure[]{\includegraphics[width=0.33\textwidth]{Experiments/Synthetic/scene/IT20.png}}
+    \subfigure[]{\includegraphics[width=0.33\textwidth]{Experiments/Synthetic/scene/IT30.png}}
     \caption[Synthetic Scene Setup]{Set of 3D points considered in the synthetic experiment setup: (a) 100 points simulation, (b) 1000 points simulation, (c) 2000 points simulation, (d) 3000 points simulation.}
     \label{fig:syntheticScenes}
 \end{figure}
@@ -26,15 +26,15 @@ We conducted trials on synthetic data to assess pose estimation using both the f
 
 % Varying noise discussion
 \subsubsection*{Metrics varying Noise}
-Metrics before and after Bundle Adjustment, against Gaussian noise level added to the data points, are shown respectively in Figure (\ref{fig:initNoisePlot}) and Figure (\ref{fig:BANoisePlot}).
+Metrics before and after \acs{BA}, against Gaussian noise level added to the data points, are shown respectively in Figure (\ref{fig:initNoisePlot}) and Figure (\ref{fig:BANoisePlot}).
 
 Initially, all methods show increasing reprojection, rotation, and translation errors as noise rises, with \acs{FP-TFT} and \acs{O-FM} demonstrating the lowest errors, indicating higher accuracy. Conversely, \acs{L-TFT} and \acs{R-TFT} exhibit higher errors, suggesting less robustness to noise. The number of iterations generally increases with noise, with \acs{N-TFT} requiring the most iterations, and \acs{L-TFT} showing the fastest computation times.
 
-However, after \acs{BA}, all methods display significantly reduced errors and a linear increase with noise, indicating improved precision and robustness. The number of iterations and computational times remain relatively stable post-adjustment, demonstrating efficient optimisation. Overall, these plots highlight a trade-off between accuracy and computational efficiency, with bundle adjustment enhancing performance across all methods, making them more precise and robust to noise.\\
+However, after \acs{BA}, all methods display significantly reduced errors and a linear increase with noise, indicating improved precision. The number of iterations and computational times remain relatively stable post-adjustment. Overall, these plots highlight a trade-off between accuracy and computational efficiency, with \acs{BA} enhancing performance across all methods, making them more precise and robust to noise.\\
 
 % Varying focal length discussion
 \subsubsection*{Metrics varying Focal Length}
-Metrics before and after Bundle Adjustment, against Gaussian noise level added to the data points, are shown respectively in Figure (\ref{fig:initNoisePlot}) and Figure (\ref{fig:BANoisePlot}).
+Metrics before and after \acs{BA}, against varying focal length, are shown respectively in Figure (\ref{fig:initFocalPlot}) and Figure (\ref{fig:BAFocalPlot}).
 
 Before \acs{BA}, the \acs{TFT} methods generally showed higher errors than the \acs{FM} methods. The \acs{L-TFT} had the highest initial errors in reprojection, rotation, and translation, while both the \acs{L-FM} and \acs{O-FM} performed better in initial estimates.
 
@@ -42,7 +42,7 @@ After applying \acs{BA}, the differences between parametrizations became less pr
 
 % Varying number of points discussion
 \subsubsection*{Metrics varying Number of Points}
-Metrics before and after Bundle Adjustment, against the number of points considered in the synthetic scene, are shown respectively in Figure (\ref{fig:initPointsPlot}) and Figure (\ref{fig:BAPointsPlot}).
+Metrics before and after \acs{BA}, against the number of points considered in the synthetic scene, are shown respectively in Figure (\ref{fig:initPointsPlot}) and Figure (\ref{fig:BAPointsPlot}).
 
 Pre-\acs{BA} performances showed errors (reprojection, rotation, translation) being significantly higher for all methods, especially with a small number of points. The \acs{L-TFT} method generally showed the highest initial errors, whereas both the \acs{FM} methods often performed better in initial estimates.
 
@@ -52,7 +52,7 @@ Post-\acs{BA} performances showed error significantly reduced, with reprojection
 \subsubsection*{Metrics varying Camera Angle}
 Metrics before and after Bundle Adjustment, against the varying angle among the three camera centers, are shown respectively in Figure (\ref{fig:initAnglePlot}) and Figure (\ref{fig:BAAnglePlot}).
 
-Again, results after \acs{BA} are clearly more accurate with respect to the initial ones, with errors being almost null for all methods except \acs{N-TFT}, which shows peaks for certain angular values.
+Again, results after \acs{BA} are clearly more accurate with respect to the initial ones, with errors being almost null for all methods except \acs{N-TFT}, which showed peaks for certain angular values.
 
 \begin{figure}[p]
 	\centering
@@ -113,7 +113,7 @@ Again, results after \acs{BA} are clearly more accurate with respect to the init
 \pagebreak
 
 \subsection{Real Data}
-In assessing the efficacy of these methods within real-world contexts, we opted to utilize scenes from the EPFL Dense Multi-View Stereo Dataset, presented in \cite{13-epfl-dataset}, provided by the CVLab at EPFL. \footnote{The EPFL Dense Multi-View Stereo Dataset, featuring the scenes utilized in our study, is readily accessible at the following location: \href{https://documents.epfl.ch/groups/c/cv/cvlab-unit/www/data/multiview/denseMVS.html}{https://documents.epfl.ch/groups/c/cv/cvlab-unit/www/data/multiview/denseMVS.html}.}\\
+In assessing the efficacy of these methods within real-world contexts, we opted to utilize scenes from the EPFL Dense Multi-View Stereo Dataset, presented in \cite{13-epfl-dataset}, provided by the CVLab at EPFL. \footnote{The EPFL Dense Multi-View Stereo Dataset, featuring the scenes utilized in our study, is readily accessible at the following location: \href{https://documents.epfl.ch/groups/c/cv/cvlab-unit/www/data/multiview/denseMVS.html}{https://documents.epfl.ch/groups/c/cv/cvlab-unit/www/data/multiview/denseMVS.html}.} \footnote{Real trials are developed in the MATLAB script \textit{RealExperiments.m} of the GitHub repository.}\\
 
 Table (\ref{tab:fountainInit}) and (\ref{tab:fountainBA}) show metrics before and after \acs{BA} with respect to the \textit{fountain-P11} set of images from the dataset.
 

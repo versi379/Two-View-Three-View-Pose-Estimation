@@ -18,9 +18,16 @@
 \usepackage{multicol}
 \usepackage[bottom]{footmisc}
 
-\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,bookmarks=false,colorlinks]{hyperref}
-% color for refs (equations, acros)
-\hypersetup{linkcolor=blue}
+\usepackage{xcolor}
+
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,bookmarks=false,colorlinks=true,
+	linkcolor=,
+	anchorcolor=,
+    citecolor=green,
+    filecolor=,
+    menucolor=,
+    runcolor=,      
+    urlcolor=magenta]{hyperref}
 
 \cvprfinalcopy
 
@@ -41,7 +48,11 @@
 \usepackage{acronym}
 
 \AtBeginEnvironment{acronym}{
-	\renewcommand*{\aclabelfont}[1]{\acsfont{\color{blue}#1}}}
+	\renewcommand*{\aclabelfont}[1]{\acsfont{\color{black}#1}}}
+	\let\oldac\ac
+\renewcommand*\ac[1]{\textcolor{black}{\oldac{#1}}}
+	\let\oldacs\acs
+\renewcommand*\acs[1]{\textcolor{black}{\oldacs{#1}}}
 	
 \usepackage{subfigure}
 
@@ -85,6 +96,7 @@
 \section*{List of Acronyms}
 \begin{acronym}
  \acro{FM}{Fundamental Matrix}
+ \acro{EM}{Essential Matrix}
  \acro{TFT}{Trifocal Tensor}
  \acro{L-FM}{Linear Fundamental Matrix Estimation}
  \acro{O-FM}{Optimized Fundamental Matrix Estimation}
@@ -93,6 +105,7 @@
  \acro{N-TFT}{Nordberg Trifocal Tensor Estimation}
  \acro{FP-TFT}{Faugeras-Papadopoulo Trifocal Tensor Estimation}
  \acro{PH-TFT}{Ponce-Hebert Trifocal Tensor Estimation}
+ \acro{SVD}{Singular Value Decomposition}
  \acro{GH}{Gauss-Helmert Optimization}
  \acro{LM}{Levenberg-Marquardt Optimization}
  \acro{DLT}{Direct Linear Transformation}
